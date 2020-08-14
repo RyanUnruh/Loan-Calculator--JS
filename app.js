@@ -5,7 +5,7 @@ document
 
 // Calculate results
 function calculateResults(e) {
-  console.log('Calculating...');
+  console.log("Calculating...");
   //  Ui Vars
   const amount = document.getElementById("amount");
   const interest = document.getElementById("interest");
@@ -27,8 +27,34 @@ function calculateResults(e) {
     totalPayment.value = (monthly * calculatedPayments).toFixed(2);
     totalInterest.value = (monthly * calculatedPayments - principal).toFixed(2);
   } else {
-    console.log("Check Numbers");
+    showError("Please check your numbers");
   }
 
   e.preventDefault();
+}
+
+function showError(error) {
+  // Create div
+  const errorDiv = document.createElement("div");
+
+  // Get elements
+  const card = document.querySelector(".card");
+  const heading = document.querySelector(".heading");
+
+  // Add class
+  errorDiv.className = "alert alert-danger";
+
+  // Create text node and append to div
+  errorDiv.appendChild(document.createTextNode(error));
+
+  // Insert error above heading
+  card.insertBefore(errorDiv, heading);
+
+  // Clear error after 3 sec
+  setTimeout(clearError, 3000);
+}
+
+// Clear eerror
+function clearError() {
+  document.querySelector(".alert").remove();
 }
